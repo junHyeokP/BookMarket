@@ -63,9 +63,6 @@ public class BookMarketController {
 			int quantity = view.inputNumber(0, mBookStorage.getMaxQuantity());
 			// 도서 ID에 해당하는 cartItem 가져와서 cartItem quantity set 수량
 			mCart.updateQuantity(bookId, quantity);
-			
-			 
-			
 		}
 	}
 

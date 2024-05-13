@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Cart {
 	private ArrayList<CartItem> itemList = new ArrayList<>();
-	// private int numItems = 0;
 	
 	public boolean isEmpty() {
 		return itemList.isEmpty();
@@ -13,10 +12,6 @@ public class Cart {
 	public ArrayList<CartItem> getItemList() {
 		return itemList;
 	}
-
-//	public void setItemList(ArrayList<CartItem> itemList) {
-//		this.itemList = itemList;
-//	}
 
 	public int getNumItems() {
 		return itemList.size();

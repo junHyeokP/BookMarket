@@ -31,6 +31,7 @@ public class Book {
 	}
 	
 	//toString 기능 오버라이딩
+	@Override
 	public String toString() {
 		return bookId + ", " + title + ", " + author + ", " + publisher 
 				+ ", " + price + "원";
