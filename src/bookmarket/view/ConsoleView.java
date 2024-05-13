@@ -61,7 +61,7 @@ public class ConsoleView {
 		}
 		
 		for (int i = 0; i < mCart.getNumItems(); i++) {
-			System.out.println(mCart.getItemInfo());	
+			System.out.println(mCart.getItemInfo(i));	
 		}
 	}
 
@@ -90,5 +90,35 @@ public class ConsoleView {
 		} while(!result);
 		
 		return bookId;
+	}
+
+	public int selectBookId(Cart cart) {
+		Scanner sc = new Scanner(System.in);
+		
+		int bookId;
+		boolean result;
+		do {
+			System.out.print("도서의 ID를 입력해주세요 : ");
+			bookId = sc.nextInt();
+			result = cart.isValidItem(bookId);
+			if (!result)
+				System.out.println("잘못된 도서 ID입니다.");
+		} while(!result);
+		
+		return bookId;
+	}
+
+	public int inputNumber(int min, int max) {
+		Scanner sc = new Scanner(System.in);
+		int number;
+		do {
+			System.out.print(">> 수량 입력 (" + min + " ~ " + max + "): ");
+			number = sc.nextInt();
+			if (number < min || number > max) {
+				System.out.println("잘못된 수량입니다.");
+			}
+		} while (number < min || number > max);
+		
+		return number;
 	}
 }

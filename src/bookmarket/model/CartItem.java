@@ -2,6 +2,7 @@ package bookmarket.model;
 
 public class CartItem {
 	Book book;
+	int bookId;
 	int quantity;
 	
 	public CartItem(Book book) {

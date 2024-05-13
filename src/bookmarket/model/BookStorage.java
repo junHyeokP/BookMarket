@@ -1,29 +1,25 @@
 package bookmarket.model;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class BookStorage {
-	Book[] bookList;
+	ArrayList<Book> bookList = new ArrayList<>();
+	final int MAX_QUANTITY = 10;
 	
 	public BookStorage() {
-		bookList = new Book[] {
-						new Book(2401, "쉽게 배우는 자바 프로그래밍 2판", "우종정", "한빛아카데미", 20000),
-				     	new Book(2402, "코딩 자율학습 HTML+CSS+자바스크립트", "김기수", "길벗", 30000),
-				        new Book(2403, "Do It! 자료구조와 함께 배우는 알고리즘 입문 - 자바편", "보요시바타", "이지스퍼블리싱", 25000)
-							};
+			
+		bookList.add(new Book(2401, "쉽게 배우는 자바 프로그래밍 2판", "우종정", "한빛아카데미", 20000));
+		bookList.add(new Book(2402, "코딩 자율학습 HTML+CSS+자바스크립트", "김기수", "길벗", 30000));
+		bookList.add(new Book(2403, "Do It! 자료구조와 함께 배우는 알고리즘 입문 - 자바편", "보요시바타", "이지스퍼블리싱", 25000));
+				
 	}
 
 	public int getNumBooks() {
-		return bookList.length;
+		return bookList.size();
 	}
 	
-	
-	public String getNumBooks(int i) {
-		return bookList[i].toString();
-	}
-
 	public String getBookInfo(int i) {
-		return bookList[i].toString();
+		return bookList.get(i).toString();
 	}
 
 	public boolean isValidBook(int bookId) {
@@ -42,6 +38,10 @@ public class BookStorage {
 			}
 		}
 		return null;
+	}
+
+	public int getMaxQuantity() {
+		return this.MAX_QUANTITY;
 	}
 
 }
