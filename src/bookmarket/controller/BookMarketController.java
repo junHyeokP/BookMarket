@@ -1,14 +1,16 @@
 package bookmarket.controller;
 
-import bookmarket.model.BookStorage;  
+import bookmarket.model.BookStorage;    
 import bookmarket.model.Cart;
 import bookmarket.view.ConsoleView;
+import bookmarket.model.Customer;
 
 public class BookMarketController {
 	
 	ConsoleView view;
 	BookStorage mBookStorage;
 	Cart mCart;
+	Customer Customer; // model에서 import해서 가져오기
 	String[] menuList = {
 			"0. 종료",
 			"1. 도서 정보 보기",
@@ -24,11 +26,12 @@ public class BookMarketController {
 		this.view = view;
 		this.mBookStorage = bookStorage;
 		this.mCart = cart;
+		Customer customer = new Customer();
 	}
 
 	public void start() {
 		view.displaywelcome();
-		
+	    view.CustomerInfo(Customer);
 		int menu;
 		
 		do {
@@ -42,14 +45,35 @@ public class BookMarketController {
 			case 5 -> updateBookInCart();
 			case 6 -> resetCart();
 			case 7 -> order();
+			case 0 -> end();
 			default -> view.showMessage("잘못된 메뉴 번호입니다.");
 			}
 		} while(menu != 0);
-		view.showMessage("BookMarket을 종료합니다.");
-		
 	}
 
+	private void end() {
+		view.showMessage("BookMarket을 종료합니다.");
+	}
 	private void order() {
+		
+		//배송 정보 추가
+		addDeliveryInfo();
+		//구매 정보 보기 : 장바구니 내역, 배송 정보
+		displayOrderInfo();
+		//주문할건지 다시 확인
+		if (view.askConfirm("정말 주문하시겠습니까 ? yes 아님 no를 입력해주세요.", "yes")) {
+			//주문 처리
+			mCart.resetCart();
+		}
+	}
+
+	private void addDeliveryInfo() {
+		view.inputDeliveryInfo(Customer);
+	}
+
+	private void displayOrderInfo() {
+		view.displayOrder(mCart, Customer);
+		view.displayDeliveryInfo(Customer);
 		
 	}
 

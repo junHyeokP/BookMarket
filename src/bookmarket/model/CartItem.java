@@ -26,12 +26,15 @@ public class CartItem {
 	public void addQuantity(int quantity) {
 		this.quantity += quantity;
 	}
-
+	
 	@Override
 	public String toString() {
-		return book.getBookId() + ", " + book.getTitle() + ", " + quantity + "권";
+		return book.getBookId() + ", " + book.getTitle() + ", " + quantity + "권, " + getPrice();
 	}
 	
+	public int getPrice() {
+		return quantity * book.getPrice();
+	}
 	
 	
 }

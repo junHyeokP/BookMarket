@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import bookmarket.model.BookStorage;
 import bookmarket.model.Cart;
+import bookmarket.model.Customer;
 
 public class ConsoleView {
 
@@ -12,22 +13,31 @@ public class ConsoleView {
 		System.out.println("*****************************************\n"
 				        + "*    Welcome to JunhyeokP Book Market   *\n"
 				       + "*****************************************\n");
-		
 	}
 
 	public int selectMenu(String[] menuList) {
 		
 		displayMenu(menuList);
 		
-		Scanner sc = new Scanner(System.in);
 		int menu;
 		do {
 			System.out.print(">> 메뉴 선택 : ");
-			menu = sc.nextInt();
+			menu = inputNumberWithValidation();
 			if (menu < 0 || menu >= menuList.length)
 				System.out.println("0부터 " + (menuList.length - 1) + "까지의 숫자를 입력해주세요.");
 		} while(menu < 0 || menu >= menuList.length);
 		return menu;
+	}
+	
+	private int inputNumberWithValidation() {
+		Scanner sc = new Scanner(System.in);
+		try {
+			int number = sc.nextInt();
+			return number;
+		} catch (Exception e) {
+			System.out.print("숫자를 입력하세요 : ");
+			return inputNumberWithValidation();
+		}
 	}
 
 	private void displayMenu(String[] menuList) {
@@ -77,13 +87,12 @@ public class ConsoleView {
 	}
 
 	public int selectBookId(BookStorage bookStorage) {
-		Scanner sc = new Scanner(System.in);
 		
 		int bookId;
 		boolean result;
 		do {
 			System.out.print("추가하고 싶은 도서의 ID를 입력해주세요 : ");
-			bookId = sc.nextInt();
+			bookId = inputNumberWithValidation();
 			result = bookStorage.isValidBook(bookId);
 			if (!result)
 				System.out.println("잘못된 도서 ID입니다.");
@@ -91,15 +100,16 @@ public class ConsoleView {
 		
 		return bookId;
 	}
+	
+	
 
 	public int selectBookId(Cart cart) {
-		Scanner sc = new Scanner(System.in);
 		
 		int bookId;
 		boolean result;
 		do {
 			System.out.print("도서의 ID를 입력해주세요 : ");
-			bookId = sc.nextInt();
+			bookId = inputNumberWithValidation();
 			result = cart.isValidItem(bookId);
 			if (!result)
 				System.out.println("잘못된 도서 ID입니다.");
@@ -113,12 +123,34 @@ public class ConsoleView {
 		int number;
 		do {
 			System.out.print(">> 수량 입력 (" + min + " ~ " + max + "): ");
-			number = sc.nextInt();
+			number = inputNumberWithValidation();
 			if (number < min || number > max) {
 				System.out.println("잘못된 수량입니다.");
 			}
 		} while (number < min || number > max);
 		
 		return number;
+	}
+
+	public void CustomerInfo(Customer customer) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("온라인 서점을 이용하시려면 이름과 전화번호를 입력하세요.");
+		System.out.print(">> 이름 : ");
+	    customer.setName(sc.nextLine());
+	    System.out.print(">> 전화번호 : ");
+	    customer.setPhone(sc.nextLine());
+	}
+
+	public void inputDeliveryInfo(Customer customer) {
+		Scanner sc = new Scanner(System.in);
+		customer.setAddress(sc.nextLine());
+	}
+
+	public void displayDeliveryInfo(Customer customer) {
+		System.out.println(customer.getAddress());
+	}
+
+	public void displayOrder(Cart mCart, Customer customer) {
+		System.out.println(customer.getName() + "님의 주문목록 : " + mCart.getItemList());
 	}
 }
