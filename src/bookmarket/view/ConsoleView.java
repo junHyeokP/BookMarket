@@ -1,6 +1,6 @@
 package bookmarket.view;
 
-import java.util.Scanner;
+import java.util.Scanner;      
 
 import bookmarket.model.BookStorage;
 import bookmarket.model.Cart;
@@ -91,7 +91,7 @@ public class ConsoleView {
 		int bookId;
 		boolean result;
 		do {
-			System.out.print("추가하고 싶은 도서의 ID를 입력해주세요 : ");
+			System.out.print("도서의 ID를 입력해주세요 : ");
 			bookId = inputNumberWithValidation();
 			result = bookStorage.isValidBook(bookId);
 			if (!result)
@@ -132,13 +132,14 @@ public class ConsoleView {
 		return number;
 	}
 
-	public void CustomerInfo(Customer customer) {
-		Scanner sc = new Scanner(System.in);
+	// 고객 정보 입력 받기
+	public void inputCustomerInfo(Customer customer) {
+		Scanner input = new Scanner(System.in);
 		System.out.println("온라인 서점을 이용하시려면 이름과 전화번호를 입력하세요.");
 		System.out.print(">> 이름 : ");
-	    customer.setName(sc.nextLine());
-	    System.out.print(">> 전화번호 : ");
-	    customer.setPhone(sc.nextLine());
+		customer.setName(input.nextLine());
+		System.out.print(">> 전화번호 : ");
+		customer.setPhone(input.nextLine());
 	}
 
 	public void inputDeliveryInfo(Customer customer) {
@@ -152,5 +153,27 @@ public class ConsoleView {
 
 	public void displayOrder(Cart mCart, Customer customer) {
 		System.out.println(customer.getName() + "님의 주문목록 : " + mCart.getItemList());
+	}
+
+	public String inputString(String message) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print(message);
+		return sc.nextLine();
+	}
+
+	public int readNumber(String message) {
+		Scanner sc = new Scanner(System.in);
+		if (message != null) {
+		  System.out.println(message);	
+		}
+		try {
+			int number = sc.nextInt();
+			return number;
+		} catch (Exception e) {
+			System.out.print("숫자를 입력하세요 : ");
+			return sc.nextInt();
+		}
+		
+		
 	}
 }
